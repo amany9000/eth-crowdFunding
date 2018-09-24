@@ -1,0 +1,22 @@
+{
+  "name": "eth-crowdfunding",
+  "version": "1.0.0",
+  "description": "An ethereum based Crowd Funding Application",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amany9000/eth-crowdFunding.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amany9000/eth-crowdFunding/issues"
+  },
+  "homepage": "https://github.com/amany9000/eth-crowdFunding#readme"
+}
