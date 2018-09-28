@@ -29,7 +29,6 @@ beforeEach(async() => {
 		JSON.parse(compiledCampaign.interface),
 		CampaignAddress 
 	);
-	console.log("hey",CampaignAddress)
 }); 
 
 describe("Campaign", ()=> {
@@ -87,5 +86,43 @@ describe("Campaign", ()=> {
 		assert.equal("Need a Rasberry Pi", request.description);
 		assert.equal("100", request.value);
 		assert.equal(accounts[2],request.recipient);
+	});
+
+	it("processes a  request", async() => {
+		//chekcing the initail balance of recipient account 
+		console.log("intial balance of recipient", web3.utils.fromWei(await web3.eth.getBalance(accounts[3]), "ether"))
+		await campaign.methods.contribute().send({
+			from: accounts[1],
+			value: web3.utils.toWei("10", "ether")
+		});
+
+		await campaign.methods
+			.createRequest("XYZ", web3.utils.toWei("5", "ether"), accounts[3])
+			.send({
+				from: accounts[0],
+				gas: "1000000"
+			});
+		await campaign.methods
+			.approveRequest(0).send({
+				from: accounts[1],
+				gas: "1000000"
+			});
+
+		await campaign.methods
+			.finalizeRequest(0)
+			.send({
+				from: accounts[0],
+				gas: "1000000"
+			});
+
+		let balance = await web3.eth.getBalance(accounts[3])
+		balance = web3.utils.fromWei(balance, "ether");
+		balance = parseFloat(balance);				
+
+		console.log("final balance of recipient", balance);
+
+		// if your using accoutn[3] in any other test , it balance will change
+		// in that case use - (balance> 104) 
+		assert(balance === 105);
 	})
 });
