@@ -5,7 +5,7 @@ const Web3 = require("web3");
 const compiledStore = require("../ethereum/build/CampaignStore.json");
 
 const provider = new hdWalletProvider(
-	"cousin wasp clip dynamic advance devote this million magic bean ceiling anger",
+	"{Your Account Mnemonic on Metamask}",
 	"https://rinkeby.infura.io/v3/e8bccfbf91864d7ea8797b0ae8b2d30a"
 );
 
