@@ -58,4 +58,34 @@ describe("Campaign", ()=> {
 		const isApprover = await campaign.methods.approvers(accounts[1]).call();
 		assert(isApprover);
 	})
+
+	it("requires a minimum contribution", async() => {
+		try {
+			await campaign.methods.contribute().send({
+				value: "40",
+				from: accounts[1]
+			});
+			assert(false);
+		}
+
+		catch(err){
+	 		assert.notEqual('AssertionError [ERR_ASSERTION]', err.name);
+		}
+	});
+
+	it("allows the manager to create a request", async() => {
+		
+		await campaign.methods
+				.createRequest("Need a Rasberry Pi", "100", accounts[2])
+				.send({
+					from: accounts[0],
+					gas: "1000000"
+				});
+		
+		const request  = await campaign.methods.requests(0).call();
+
+		assert.equal("Need a Rasberry Pi", request.description);
+		assert.equal("100", request.value);
+		assert.equal(accounts[2],request.recipient);
+	})
 });
