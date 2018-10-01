@@ -3,7 +3,9 @@ An ethereum based Crowd Funding Application. The main functionalities provided b
 
 ## To Run 
 * Clone the repository.  
- ``` cd eth-crowdFunding```
+ ``` bash
+ cd eth-crowdFunding
+ ```
 * Include the dependecies - 
 ``` node
 npm install
