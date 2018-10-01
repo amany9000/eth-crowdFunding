@@ -30,6 +30,6 @@ const read = async () => {
 	return await store.methods.getDeployedCampaigns().call();
 } 
 
-read();
+//read();
 
 module.exports = {read,getWeb3};
