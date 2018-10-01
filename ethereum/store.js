@@ -1,5 +1,5 @@
 
-// This function returns a promis containing the contract instance of inbox
+// This file contains read() which returns a promise containing the contract instance of inbox
 const Web3 = require("web3");
 const hdWalletProvider = require("truffle-hdwallet-provider");
 const compiledStore = require("../ethereum/build/CampaignStore.json");

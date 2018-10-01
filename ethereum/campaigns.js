@@ -1,4 +1,5 @@
 
+// This file contains functions which interact with the specified campaign instances. 
 const compiledCampaign = require("../ethereum/build/Campaign.json");
 
 const {read, getWeb3} = require("./store.js");
@@ -20,11 +21,22 @@ const getCampaign = async(index) => {
 
 }
 
+// Function to contribute to a campaign
 const contribute = async(index, amount) => {
 	
-	getCampaign(1).then(async (campaign) => {
-		console.log(await campaign.methods.manager().call());
-	})
+	const campaign = await getCampaign(index)
+	//console.log(await campaign.methods.manager().call());
+	
+	const web3 = await getWeb3();
+	const accounts = await  web3.eth.getAccounts();
+	
+	await campaign.methods.contribute().send({
+		from: accounts[0],
+		value: web3.utils.toWei("0.11","ether")
+	});
+	
+	console.log("Approver Count- ", await campaign.methods.approversCount().call())
+	
 }
 
-contribute(1, 123)
+contribute(1, 124)
