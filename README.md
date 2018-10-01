@@ -1,5 +1,5 @@
 # eth-crowdFunding
-An ethereum based Crowd Funding Application
+An ethereum based Crowd Funding Application. The main functionalities provided by the smart contract are trust, transparency and consensus. The only way to use the contract's Eth is through ```approveRequest()``` and this function only executes the trasaction if more than 50 percent of the approvers(contributors) approve the trasaction request.   
 
 ## To Run 
 * Clone the repository.  

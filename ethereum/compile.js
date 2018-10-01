@@ -1,3 +1,5 @@
+
+// Compile script to store the camapaign and campaignStore contract object in build directory
 const path = require("path");
 const solc = require("solc");
 const fs = require("fs-extra");
