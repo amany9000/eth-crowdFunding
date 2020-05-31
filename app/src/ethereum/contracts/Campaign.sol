@@ -4,7 +4,7 @@ contract CampaignStore {
     address[] public deployedCampaigns;
     
     function createCampaign(uint min) public{
-        address newCampaign = address((new Campaign)(min, msg.sender));
+        address newCampaign = address(new Campaign(min, msg.sender));
         deployedCampaigns.push(newCampaign);
     }
     function getDeployedCampaigns() public view returns (address[] memory){
