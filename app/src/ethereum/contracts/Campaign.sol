@@ -1,13 +1,13 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.5.11;
 
 contract CampaignStore {
     address[] public deployedCampaigns;
     
     function createCampaign(uint min) public{
-        address newCampaign = new Campaign(min, msg.sender);
+        address newCampaign = address((new Campaign)(min, msg.sender));
         deployedCampaigns.push(newCampaign);
     }
-    function getDeployedCampaigns() public view returns (address[]){
+    function getDeployedCampaigns() public view returns (address[] memory){
         return deployedCampaigns;
     }
 }
@@ -17,7 +17,7 @@ contract Campaign {
     struct Request{
         string description;
         uint value;
-        address recipient;
+        address payable recipient;
         bool complete;
         uint approvalCount;
         mapping(address => bool) approvals;
@@ -48,7 +48,7 @@ contract Campaign {
         approversCount++;
     }
     
-    function createRequest(string description, uint value, address recipient) public onlyManager{
+    function createRequest(string memory description, uint value, address payable recipient) public onlyManager{
         Request memory newRequest = Request({
             description: description,
             value: value,
