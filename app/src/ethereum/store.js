@@ -4,18 +4,18 @@ const Web3 = require("web3");
 const hdWalletProvider = require("truffle-hdwallet-provider");
 const compiledStore = require("../ethereum/build/CampaignStore.json");
 
-const getWeb3 = async()=> {
+const getWeb3 = (pass) => {
 	const provider = new hdWalletProvider(
-		"cousin wasp clip dynamic advance devote this million magic bean ceiling anger",
+		pass,
 		"https://rinkeby.infura.io/v3/e8bccfbf91864d7ea8797b0ae8b2d30a"  // This address will be generated through infura 
 	);
-	
-	return new Web3(provider);
-}
+	const web3 = new Web3(provider);
+	return web3;	
+} 
 
-const read = async () => {
+const read = async (web3) => {
 
-	const web3 = await getWeb3();
+	//const web3 = await getWeb3();
 	
 	const accounts = await  web3.eth.getAccounts();
 	const store = await new web3.eth.Contract((JSON.parse(compiledStore.interface)), 
@@ -30,6 +30,14 @@ const read = async () => {
 	return await store.methods.getDeployedCampaigns().call();
 } 
 
-//read();
+const createCampaign = async (min, web3) => {
 
-module.exports = {read,getWeb3};
+	const accounts = await  web3.eth.getAccounts();
+	const store = await new web3.eth.Contract((JSON.parse(compiledStore.interface)), 
+		"0x97709358b13c070E20cbe0d314834244E1f0D834");
+	
+	//Code to deploy a new camapign
+	return await store.methods.createCampaign(min).send(({gas: "1000000", from: accounts[0]}));	
+}
+
+module.exports = {read, getWeb3, createCampaign};
