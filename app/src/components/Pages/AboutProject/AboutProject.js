@@ -10,7 +10,7 @@ import {
   Link,
   withRouter
 } from 'react-router-dom'
-import {getInitiativeDetails, contribute} from '../../../ethereum/initiative';
+import {getCampaignDetails, contribute} from '../../../ethereum/initiative';
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
@@ -44,7 +44,7 @@ class About extends Component {
           });
         });
 
-        getInitiativeDetails(this.props.match.params.projectId, this.props.location.web3).then((some) => {
+        getCampaignDetails(this.props.match.params.projectId, this.props.location.web3).then((some) => {
           this.setState({
             project: some,
             loading: false,

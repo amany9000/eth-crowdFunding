@@ -1,10 +1,13 @@
-pragma solidity ^0.5.11;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.6.8;
 
 contract CampaignStore {
     address[] public deployedCampaigns;
     
-    function createCampaign(uint min) public{
-        address newCampaign = address(new Campaign(min, msg.sender));
+    function createCampaign( string memory campaignName, string memory campaignDescription, uint min) public{
+        
+        address newCampaign = address(new Campaign(campaignName, campaignDescription, min, msg.sender));
         deployedCampaigns.push(newCampaign);
     }
     function getDeployedCampaigns() public view returns (address[] memory){
@@ -15,7 +18,7 @@ contract CampaignStore {
 contract Campaign {
     
     struct Request{
-        string description;
+        string requestDescription;
         uint value;
         address payable recipient;
         bool complete;
@@ -24,9 +27,14 @@ contract Campaign {
     }
     
     Request[] public requests;
+    
+    string public name;
+    string public description;
     address public manager;
     uint public minContribution;
     uint public approversCount;
+
+    
     mapping (address => bool) public approvers;
 
     modifier onlyManager{
@@ -34,9 +42,15 @@ contract Campaign {
         _;
     }
 
-    constructor (uint minimum, address creator) public{
+    constructor (string memory campaignName, string memory campaignDescription, uint minimum, address creator) public{
+        name = campaignName;
+        description = campaignDescription;
         manager = creator;
         minContribution = minimum;
+    }
+    
+    function returnReqLenght() public view returns (uint) {
+        requests.length;
     }
     
     function contribute() public payable {
@@ -48,9 +62,9 @@ contract Campaign {
         approversCount++;
     }
     
-    function createRequest(string memory description, uint value, address payable recipient) public onlyManager{
+    function createRequest(string memory reqDescription, uint value, address payable recipient) public onlyManager{
         Request memory newRequest = Request({
-            description: description,
+            requestDescription: reqDescription,
             value: value,
             recipient: recipient,
             complete: false,

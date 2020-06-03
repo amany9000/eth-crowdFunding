@@ -10,7 +10,6 @@ const getCampaign = async(index, web3) => {
 		.then( async (deployedCampaigns) => {
 			
 		//const web3 = await getWeb3();
-		const accounts = await  web3.eth.getAccounts();
 		
 		console.log(deployedCampaigns)
 		
@@ -19,6 +18,43 @@ const getCampaign = async(index, web3) => {
 
 	});
 
+}
+
+const getCampaignDetails = async(address, web3) => {
+	
+	//console.log("get", address, web3)
+	const accounts = await  web3.eth.getAccounts();		
+	
+	const campaign = await new web3.eth.Contract((JSON.parse(compiledCampaign.interface)), 
+	address);
+	
+	const name = await campaign.methods.name().call();
+	const description = await campaign.methods.description().call();
+	const manager = await campaign.methods.manager().call();
+	const minContribution = await campaign.methods.minContribution().call();
+	const approversCount = await campaign.methods.approversCount().call();
+
+	//console.log(request)
+	let i = 0;
+	
+	const deployedReq = await initiative.methods.getDeployedRequests().call();
+
+	const reqDetailList = [];
+		for(i in deployedReq){		
+			const req = await new web3.eth.Contract((JSON.parse(compiledReq.interface)), 
+			deployedReq[i]);
+
+			const description = await req.methods.description().call();
+			const value = await req.methods.value().call();
+
+			reqDetailList.push({
+				address: deployedReq[i],
+				description,
+				value
+			});
+			// delete description,value;
+		}
+	return {name, description, manager, minContribution}
 }
 
 // Function to contribute to a campaign
@@ -84,4 +120,4 @@ const finalizeRequest = async(campaignIndex, requestIndex, web3) => {
 			});
 }
 
-module.exports = {getCampaign, contribute, createRequest, approveRequest, finalizeRequest}
+module.exports = {getCampaign, contribute, createRequest, approveRequest, finalizeRequest, getCampaignDetails}
