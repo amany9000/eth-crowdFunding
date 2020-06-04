@@ -27,4 +27,4 @@ const deploy = async () => {
 	})
 }
   
-//deploy();
+deploy();

@@ -19,7 +19,7 @@ const read = async (web3) => {
 	
 	const accounts = await  web3.eth.getAccounts();
 	const store = await new web3.eth.Contract((compiledStore.CampaignStore.abi), 
-		"0x4821C44f7D6Ce357dd76Af1E99e136270Ab337A0");
+		"0x1Fe17149D483E0f07D2b5c3D5BACb6e328f5839F");
 	
 	/*  Code to deploy a new camapign
 	console.log("Deployed Camapigns Initially- ", await store.methods.getDeployedCampaigns().call())
@@ -34,12 +34,13 @@ const createCampaign = async (name, desp, min, web3) => {
 
 	const accounts = await  web3.eth.getAccounts();
 	const store = await new web3.eth.Contract((compiledStore.CampaignStore.abi), 
-		"0x4821C44f7D6Ce357dd76Af1E99e136270Ab337A0");
+		"0x1Fe17149D483E0f07D2b5c3D5BACb6e328f5839F");
 	
 	//Code to deploy a new camapign
 	return await store.methods.createCampaign(name, desp, min).send(({gas: "1000000", from: accounts[0]}));	
 }
 
-createCampaign("Feeding India", "Feeding the Poor in Urban India", 120000000000000, getWeb3())
+//createCampaign("Feeding India", "Feeding the Poor in Urban India", 120000000000000, getWeb3())
+//read(getWeb3()).then(console.log)
 
 module.exports = {read, getWeb3, createCampaign};

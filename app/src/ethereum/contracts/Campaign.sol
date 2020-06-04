@@ -50,7 +50,7 @@ contract Campaign {
     }
     
     function returnReqLenght() public view returns (uint) {
-        requests.length;
+        return requests.length;
     }
     
     function contribute() public payable {
