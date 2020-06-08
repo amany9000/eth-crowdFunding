@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../../App.css';
 import { List, Avatar, Button, Spin, Menu, Icon } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
 import {
   BrowserRouter as Router,
@@ -25,7 +26,7 @@ class Home extends Component {
           </h1>
           <Link to="/contribute">
             <Button type="primary">
-              Contribute<Icon type="right" />
+              Contribute<RightOutlined />
             </Button>
           </Link>
           </div>

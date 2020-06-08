@@ -3,7 +3,7 @@ import '../../../App.css';
 import { Form, Input, Button} from 'antd';
 import { Row, Col, Divider } from 'antd';
 import { Switch } from 'antd';
-import {deployInt} from '../../../ethereum/store';
+import {createCampaign} from '../../../ethereum/store';
 
 const FormItem = Form.Item;
 
@@ -63,7 +63,7 @@ class AddProject extends Component {
                             <Input placeholder="Contact details" value={this.state.contact} onChange={(event) => this.setState({contact: event.target.value})}/>
                         </FormItem>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="primary" onClick={()=> deployInt(this.state.name, this.state.description, this.state.founder, this.state.contact, this.props.match.params.mnemonic).then((res) => {
+                            <Button type="primary" onClick={()=> createCampaign(this.state.name, this.state.description, this.state.founder, this.state.contact, this.props.match.params.mnemonic).then((res) => {
                                 console.log("hello")})}>Submit</Button>
                         </FormItem>
                     </Form>

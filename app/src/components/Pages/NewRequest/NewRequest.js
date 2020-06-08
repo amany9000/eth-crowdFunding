@@ -3,7 +3,7 @@ import '../../../App.css';
 import { Form, Input, Button} from 'antd';
 import { Row, Col, Divider } from 'antd';
 import { Switch } from 'antd';
-import { createRequest } from "../../../ethereum/initiative";
+import { createRequest } from "../../../ethereum/campaigns";
 
 const FormItem = Form.Item;
 

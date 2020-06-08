@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom'
 
 import reqwest from 'reqwest';
-import {getAllInitiatives} from '../../../ethereum/initiative';
+import {getAllCampaigns} from '../../../ethereum/store';
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
 class Projects extends Component {
@@ -28,11 +28,14 @@ class Projects extends Component {
       });
     });
 
-    getAllInitiatives(this.props.web3).then((some) => {
-      this.setState({
-        list: some,
-        loading: false,
-      });
+    getAllCampaigns(this.props.web3).then((some) => {
+      Promise.all(some).then((campaigns) => {
+        console.log("campsign", campaigns)
+        this.setState({
+          list: campaigns,
+          loading: false,
+        });
+      })      
     })
   }
 
@@ -92,7 +95,7 @@ class Projects extends Component {
                   title={<a 
                   onClick={() => this.props.history.push({ pathname: `/projects/${item.address}`, web3 : this.props.web3})}                  
                   >{item.address}</a>}
-                  description={`${item.initiativeName} : ${item.initiativeDesc}`}
+                  description={`${item.name} : ${item.description}`}
                 />
               </List.Item>
             )}

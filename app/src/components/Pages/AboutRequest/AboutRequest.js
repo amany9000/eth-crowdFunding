@@ -12,7 +12,7 @@ import {
   withRouter
 } from 'react-router-dom'
 
-import {getReqDetails, contribute, finalizeRequest} from "../../../ethereum/initiative";
+import {getReqDetails, contribute, finalizeRequest} from "../../../ethereum/campaigns";
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 

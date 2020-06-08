@@ -1,8 +1,9 @@
 
 // This file contains read() which returns a promise containing the contract instance of inbox
 const Web3 = require("web3");
-const hdWalletProvider = require("truffle-hdwallet-provider");
+const hdWalletProvider = require("@truffle/hdwallet-provider");
 const compiledStore = require("../ethereum/build/CampaignStore.json");
+const {getCampaignDetails} = require("./campaigns.js");
 
 const getWeb3 = (pass) => {
 	const provider = new hdWalletProvider(
@@ -13,21 +14,21 @@ const getWeb3 = (pass) => {
 	return web3;	
 } 
 
-const read = async (web3) => {
-
-	//const web3 = await getWeb3();
+const getAllCampaigns = async (web3) => {
 	
-	const accounts = await  web3.eth.getAccounts();
 	const store = await new web3.eth.Contract((compiledStore.CampaignStore.abi), 
 		"0x1Fe17149D483E0f07D2b5c3D5BACb6e328f5839F");
-	
-	/*  Code to deploy a new camapign
-	console.log("Deployed Camapigns Initially- ", await store.methods.getDeployedCampaigns().call())
-	await store.methods.createCampaign(123).send(({gas: "1000000", from: accounts[0]}));	
-	console.log("Deployed Camapigns After createCampaign() call- ", await store.methods.getDeployedCampaigns().call())
-	*/
 
-	return await store.methods.getDeployedCampaigns().call();
+	const addresses =  await store.methods.getDeployedCampaigns().call();
+	const deployedCampaigns = [];
+
+	addresses.forEach( (address) => {
+		const camp = getCampaignDetails(address, web3);
+		console.log("camp", camp);
+		deployedCampaigns.push(camp);
+	})
+	console.log("dep", deployedCampaigns)
+	return deployedCampaigns;
 } 
 
 const createCampaign = async (name, desp, min, web3) => {
@@ -41,6 +42,6 @@ const createCampaign = async (name, desp, min, web3) => {
 }
 
 //createCampaign("Feeding India", "Feeding the Poor in Urban India", 120000000000000, getWeb3())
-//read(getWeb3()).then(console.log)
+//getAllCampaigns(getWeb3()).then(console.log)
 
-module.exports = {read, getWeb3, createCampaign};
+export {createCampaign, getAllCampaigns};

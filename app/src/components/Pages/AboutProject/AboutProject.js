@@ -10,7 +10,7 @@ import {
   Link,
   withRouter
 } from 'react-router-dom'
-import {getCampaignDetails, contribute} from '../../../ethereum/initiative';
+import {getCampaignDetails, contribute} from '../../../ethereum/campaigns';
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 

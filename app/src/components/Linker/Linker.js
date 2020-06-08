@@ -4,7 +4,8 @@ import {
     Route,
     Link
   } from 'react-router-dom';
-import { List, Avatar, Button, Spin, Menu, Icon } from 'antd';
+import { List, Avatar, Button, Spin, Menu} from 'antd';
+import { FacebookOutlined, YoutubeOutlined, TwitterOutlined, InstagramOutlined } from '@ant-design/icons';
 
 import Projects from '../Pages/Projects/Projects.js';
 import AddProject from "../Pages/AddProject/AddProject.js";
@@ -39,10 +40,10 @@ class Linker extends Component {
                     marginRight: '20px',
                     float: 'right'
                 }} >
-                <Icon style={{ fontSize: '20px', color: 'blue', margin: '10px' }} type="facebook" theme="outlined" />
-                <Icon style={{ fontSize: '20px', color: 'red', margin: '10px' }} type="youtube" theme="outlined" />
-                <Icon style={{ fontSize: '20px', color: '#08c', margin: '10px' }} type="twitter" theme="outlined" />
-                <Icon style={{ fontSize: '20px', color: 'pink', margin: '10px' }} type="instagram" theme="outlined" />
+                <FacebookOutlined style={{ fontSize: '20px', color: 'blue', margin: '10px' }}/>
+                <YoutubeOutlined style={{ fontSize: '20px', color: 'red', margin: '10px' }}/>
+                <TwitterOutlined style={{ fontSize: '20px', color: '#08c', margin: '10px' }}/>
+                <InstagramOutlined style={{ fontSize: '20px', color: 'pink', margin: '10px' }}/>
                 </span>
             </Menu>
           <Route exact path="/" component={Home}/>

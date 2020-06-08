@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import '../../../App.css';
-import { List, Avatar, Button, Spin, Menu, Icon, Card } from 'antd';
+import { List, Avatar, Button, Spin, Menu, Card } from 'antd';
 import { Row, Col } from 'antd';
+import { FacebookOutlined, YoutubeOutlined, TwitterOutlined, InstagramOutlined } from '@ant-design/icons';
 
 class ContactUs extends Component {
   render() {
@@ -15,10 +16,10 @@ class ContactUs extends Component {
             <h3>
             <b>Email :</b> helpothers@help.com
             </h3>
-                <Icon style={{ fontSize: '32px', color: 'blue', margin: '20px' }} type="facebook" theme="outlined" />
-                <Icon style={{ fontSize: '32px', color: 'red', margin: '20px' }} type="youtube" theme="outlined" />
-                <Icon style={{ fontSize: '32px', color: '#08c', margin: '20px' }} type="twitter" theme="outlined" />
-                <Icon style={{ fontSize: '32px', color: 'pink', margin: '20px' }} type="instagram" theme="outlined" />
+                <FacebookOutlined style={{ fontSize: '32px', color: 'blue', margin: '20px' }}/>
+                <YoutubeOutlined style={{ fontSize: '32px', color: 'red', margin: '20px' }}/>
+                <TwitterOutlined style={{ fontSize: '32px', color: '#08c', margin: '20px' }}/>
+                <InstagramOutlined style={{ fontSize: '32px', color: 'pink', margin: '20px' }}/>
             </Card>
       </div>
     );

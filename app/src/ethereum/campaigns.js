@@ -4,22 +4,7 @@ const compiledCampaign = require("../ethereum/build/Campaign.json");
 
 const {read, getWeb3} = require("./store.js");
 
-const getCampaign = async(index, web3) => {
-
-	return await read()
-		.then( async (deployedCampaigns) => {
-			
-		//const web3 = await getWeb3();
-		//console.log(deployedCampaigns)
-
-		return await new web3.eth.Contract((JSON.parse(compiledCampaign.interface)), 
-		deployedCampaigns[index]);
-
-	});
-}
-
 const getCampaignDetails = async(address, web3) => {
-
 	const campaign = await new web3.eth.Contract(compiledCampaign.Campaign.abi, 
 	address);
 	
@@ -30,30 +15,39 @@ const getCampaignDetails = async(address, web3) => {
 	const approversCount = await campaign.methods.approversCount().call();
 	
 	const reqList = await getAllRequests(address, web3);
-	
-	console.log("before return")
-	return {name, description, manager, minContribution, approversCount, reqList}
-	console.log("after return")
+		
+	return {name, description, manager, minContribution, approversCount, reqList, address}
 }
 
 const getAllRequests = async(address, web3) => {
 	
 	const campaign = await new web3.eth.Contract(compiledCampaign.Campaign.abi, 
-		address);
-	
-	const accounts = await  web3.eth.getAccounts();
-	
-	const numReq = await campaign.methods.returnReqLenght().call();
+		address);	
+	let  numReq = await campaign.methods.returnReqLenght().call();
 	let reqList = [];	
-
+	
 	if(numReq > 0){
-		let i = 0;
-		for(i in numReq){
-			const req = await campaign.methods.requests(i).call();		
+		while(numReq--){
+			const req = await campaign.methods.requests(numReq).call();		
 			reqList.push(req);
 		}
 	}
 	return reqList;
+}
+
+const getReqDetails = async(address, index, web3) => {
+	
+	const campaign = await new web3.eth.Contract(compiledCampaign.Campaign.abi, 
+		address);
+		
+	const numReq = await campaign.methods.returnReqLenght().call();
+
+	if(numReq >= index ){
+		return await campaign.methods.requests(index).call();		
+	}
+	else{
+		return [];
+	}
 }
 
 // Function to contribute to a campaign
@@ -121,4 +115,4 @@ const finalizeRequest = async(address, requestIndex, web3) => {
 //approveRequest("0x0d7341cd3597A55E855C9e215797eD0FC80133C3", 0, getWeb3()).then( (val) => console.log(val, "Request Approved"))
 //finalizeRequest("0x0d7341cd3597A55E855C9e215797eD0FC80133C3", 0, getWeb3()).then( (val) => console.log(val, "Request Finalised"))
 
-module.exports = {getCampaign, contribute, createRequest, approveRequest, finalizeRequest, getCampaignDetails, getAllRequests}
+export {contribute, createRequest, approveRequest, finalizeRequest, getCampaignDetails, getAllRequests, getReqDetails}
