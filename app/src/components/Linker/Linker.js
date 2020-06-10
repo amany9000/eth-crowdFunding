@@ -7,9 +7,9 @@ import {
 import { List, Avatar, Button, Spin, Menu} from 'antd';
 import { FacebookOutlined, YoutubeOutlined, TwitterOutlined, InstagramOutlined } from '@ant-design/icons';
 
-import Projects from '../Pages/Projects/Projects.js';
-import AddProject from "../Pages/AddProject/AddProject.js";
-import AboutProject from "../Pages/AboutProject/AboutProject.js";
+import Campaigns from '../Pages/Campaigns/Campaigns.js';
+import AddCampaign from "../Pages/AddCampaign/AddCampaign.js";
+import AboutCampaign from "../Pages/AboutCampaign/AboutCampaign.js";
 import RequestList from '../Pages/RequestList/RequestList.js';
 import NewRequest from '../Pages/NewRequest/NewRequest.js';
 import AboutRequest from '../Pages/AboutRequest/AboutRequest.js';
@@ -49,11 +49,11 @@ class Linker extends Component {
           <Route exact path="/" component={Home}/>
           <Route exact path="/account" component={Account}/>
           <Route exact path="/contribute" component={Auth}/>
-          <Route exact path="/projects" component={Projects}/>
-          <Route exact path="/addproject/:mnemonic"  component={AddProject} />
+          <Route exact path="/campaigns" component={Campaigns}/>
+          <Route exact path="/add/campaign/"  component={AddCampaign} />
           <Route exact path="/contactus" component={ContactUs} />
           <Route exact path="/aboutus" component={AboutUs} />
-          <Route exact path="/projects/:projectId" component={AboutProject} />
+          <Route exact path="/campaigns/:campaignId" component={AboutCampaign} />
           <Route exact path="/requests" component={RequestList} />
           <Route exact path="/newrequest"  component={NewRequest} />
           <Route exact path="/requests/:requestId/:item" component={AboutRequest} />

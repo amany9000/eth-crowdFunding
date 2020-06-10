@@ -26,13 +26,13 @@ class About extends Component {
         loadingMore: false,
         showLoadingMore: true,
         data: [],
-        project: null,
+        campaign: null,
         approver : false,
         finVal : 5
       }
 
       sendVal = () => {
-        contribute(this.props.match.params.projectId, this.state.finVal ,this.props.location.web3)
+        contribute(this.props.match.params.campaignId, this.state.finVal ,this.props.location.web3)
           .then(() => alert("Contribution Made, thank you!!!!!"))
       }
 
@@ -44,9 +44,9 @@ class About extends Component {
           });
         });
 
-        getCampaignDetails(this.props.match.params.projectId, this.props.location.web3).then((some) => {
+        getCampaignDetails(this.props.match.params.campaignId, this.props.location.web3).then((some) => {
           this.setState({
-            project: some,
+            campaign: some,
             loading: false,
           });
         })
@@ -88,7 +88,7 @@ class About extends Component {
       }
       
   render() {
-    const { loading, loadingMore, showLoadingMore, data, project } = this.state;
+    const { loading, loadingMore, showLoadingMore, data, campaign } = this.state;
     const loadMore = showLoadingMore ? (
       <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
         {loadingMore && <Spin />}
@@ -130,12 +130,12 @@ class About extends Component {
                 </Col>
                 <Col span={16} pull={4}>
                     {
-                      project?
+                      campaign?
                       <div>
-                        <h2>{this.props.match.params.projectId}</h2>
-                        <h2>{project.projectDesc}</h2>
-                        <p><b>Founder:</b> {project.creatorName}</p>
-                        <p><b>Contact:</b> {project.creatorContact}</p>
+                        <h2>{this.props.match.params.campaignId}</h2>
+                        <h2>{campaign.campaignDesc}</h2>
+                        <p><b>Founder:</b> {campaign.creatorName}</p>
+                        <p><b>Contact:</b> {campaign.creatorContact}</p>
                         <br /> <br />
                         <h1>Request List</h1>
                         <List
@@ -143,7 +143,7 @@ class About extends Component {
                             loading={loading}
                             itemLayout="horizontal"
                             loadMore={loadMore}
-                            dataSource={this.state.project.reqDetailList}
+                            dataSource={this.state.campaign.reqDetailList}
                             renderItem={(item, index) => (
                             <List.Item>
                             {/* <List.Item actions={[<a>edit</a>, <a>more</a>]}> */}
@@ -174,7 +174,7 @@ class About extends Component {
                     loading={loading}
                     itemLayout="horizontal"
                     loadMore={loadMore}
-                    dataSource={this.state.project.reqDetailList}
+                    dataSource={this.state.campaign.reqDetailList}
                     renderItem={item => (
                     <List.Item>
                     {/* <List.Item actions={[<a>edit</a>, <a>more</a>]}> 

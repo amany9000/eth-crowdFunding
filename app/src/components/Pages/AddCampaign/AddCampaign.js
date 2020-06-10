@@ -3,22 +3,22 @@ import '../../../App.css';
 import { Form, Input, Button} from 'antd';
 import { Row, Col, Divider } from 'antd';
 import { Switch } from 'antd';
+import {withRouter} from 'react-router-dom';
+
 import {createCampaign} from '../../../ethereum/store';
 
 const FormItem = Form.Item;
 
-class AddProject extends Component {
+class AddCampaign extends Component {
     constructor() {
         super();
         this.state = {
           formLayout: 'horizontal',
           name: '',
           description: '',
-          founder: '',
-          contact:''
+          minContribution:''
         };
       }
-      
 
   render() {
       console.log(this.props.match.params.mnemonic);
@@ -36,13 +36,13 @@ class AddProject extends Component {
             <Row type="flex" justify="center">
                 <Col span={12}>
                     <br></br>
-                    <h1 style={{display: "flex", justifyContent: "center"}}>Add new Project</h1>
+                    <h1 style={{display: "flex", justifyContent: "center"}}>Add new Campaign</h1>
                     <Form layout={formLayout}>
                         <FormItem
-                            label="Project Name"
+                            label="Campaign Name"
                             {...formItemLayout}
                         >
-                            <Input placeholder="Name of project" value={this.state.name} onChange={(event) => this.setState({name: event.target.value})}/>
+                            <Input placeholder="Name of Campaign" value={this.state.name} onChange={(event) => this.setState({name: event.target.value})}/>
                         </FormItem>
                         <FormItem
                             label="Description"
@@ -51,20 +51,14 @@ class AddProject extends Component {
                             <TextArea rows={4} value={this.state.description} onChange={(event) => this.setState({description: event.target.value})}/>
                         </FormItem>
                         <FormItem
-                            label="Founder"
+                            label="Min. Contribution"
                             {...formItemLayout}
                         >
-                            <Input placeholder="Name of founder" value={this.state.founder} onChange={(event) => this.setState({founder: event.target.value})}/>
-                        </FormItem>
-                        <FormItem
-                            label="Contact"
-                            {...formItemLayout}
-                        >
-                            <Input placeholder="Contact details" value={this.state.contact} onChange={(event) => this.setState({contact: event.target.value})}/>
+                            <Input placeholder="Minimum Contribution Allowed" value={this.state.minContribution} onChange={(event) => this.setState({minContribution: event.target.value})}/>
                         </FormItem>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="primary" onClick={()=> createCampaign(this.state.name, this.state.description, this.state.founder, this.state.contact, this.props.match.params.mnemonic).then((res) => {
-                                console.log("hello")})}>Submit</Button>
+                            <Button type="primary" onClick={()=> createCampaign(this.state.name, this.state.description, parseInt(this.state.minContribution), this.props.location.web3).then((res) => {
+                                alert("Congrats, new Campaign Added!")})}>Submit</Button>
                         </FormItem>
                     </Form>
                 </Col>
@@ -74,4 +68,4 @@ class AddProject extends Component {
   }
 }
 
-export default AddProject;
+export default withRouter(AddCampaign);

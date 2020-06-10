@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Account from '../components/Pages/Account/Account';
-import Project from '../components/Pages/Projects/Projects';
+import Campaign from '../components/Pages/Campaigns/Campaigns';
 
 class Auth extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ class Auth extends Component {
     }
     else {
         return(
-            <Project web3={this.state.web3} />
+            <Campaign web3={this.state.web3} />
         );
     }
   }

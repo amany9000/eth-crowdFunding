@@ -13,7 +13,7 @@ import reqwest from 'reqwest';
 import {getAllCampaigns} from '../../../ethereum/store';
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
-class Projects extends Component {
+class Campaigns extends Component {
   state = {
     loading: true,
     loadingMore: false,
@@ -78,8 +78,10 @@ class Projects extends Component {
         <Col xs={20} sm={16} md={12} lg={18} xl={12}>
         <div>
           <br />
-        <h2>Working Projects
-        <Button style={{float: "right", display: "flex"}}><Link to={`/addproject/${this.props.web3}`}>Add Projects</Link></Button>
+        <h2>Working campaigns
+        <Button style={{float: "right", display: "flex"}} 
+        onClick={() => this.props.history.push({ pathname: `/add/campaign/`, web3 : this.props.web3})}
+        >Add Campaign</Button>
         </h2>
         <Divider ></Divider>
           <List
@@ -93,7 +95,7 @@ class Projects extends Component {
                 <List.Item.Meta
                   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                   title={<a 
-                  onClick={() => this.props.history.push({ pathname: `/projects/${item.address}`, web3 : this.props.web3})}                  
+                  onClick={() => this.props.history.push({ pathname: `/campaigns/${item.address}`, web3 : this.props.web3})}                  
                   >{item.address}</a>}
                   description={`${item.name} : ${item.description}`}
                 />
@@ -109,4 +111,4 @@ class Projects extends Component {
 }
 
 
-export default withRouter(Projects);
+export default withRouter(Campaigns);
