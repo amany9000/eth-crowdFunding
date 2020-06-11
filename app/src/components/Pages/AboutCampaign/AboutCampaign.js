@@ -48,7 +48,7 @@ class About extends Component {
           this.setState({
             campaign: some,
             loading: false,
-          });
+          }, () => console.log("cdm", this.state.campaign));
         })
       }
       getData = (callback) => {
@@ -106,8 +106,8 @@ class About extends Component {
     } : null;
     return (
         <div>
-            <h1 style={{display: "flex", justifyContent: "center", fontSize: "50px"}}>About</h1>
-            <div style={{ background: '#ECECEC', padding: '30px' }}>
+            <h1 className="pb-0 mb-0" style={{display: "flex", justifyContent: "center", fontSize: "40px"}}>{this.state.campaign ? this.state.campaign.name : "About"}</h1>
+            <div style={{ background: '#ECECEC', padding: '10px' }}>
 
             <Row type="flex" justify="center">
                 <Col span={6} push={18}>
@@ -132,10 +132,10 @@ class About extends Component {
                     {
                       campaign?
                       <div>
-                        <h2>{this.props.match.params.campaignId}</h2>
-                        <h2>{campaign.campaignDesc}</h2>
-                        <p><b>Founder:</b> {campaign.creatorName}</p>
-                        <p><b>Contact:</b> {campaign.creatorContact}</p>
+                        <h2>{this.props.match.params.name}</h2>
+                        <h2>{campaign.description}</h2>
+                        <p><b>Manager:</b> {campaign.manager}</p>
+                        <p><b>Min. Contribution:</b> {`${campaign.minContribution} Wei`}</p>
                         <br /> <br />
                         <h1>Request List</h1>
                         <List
@@ -143,18 +143,18 @@ class About extends Component {
                             loading={loading}
                             itemLayout="horizontal"
                             loadMore={loadMore}
-                            dataSource={this.state.campaign.reqDetailList}
+                            dataSource={this.state.campaign.reqList}
                             renderItem={(item, index) => (
                             <List.Item>
                             {/* <List.Item actions={[<a>edit</a>, <a>more</a>]}> */}
                                 <List.Item.Meta
                                 avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                                 title={<a 
-                                  onClick={() => this.props.history.push({ pathname: `/requests/${item.address}/${index}`, web3 : this.props.location.web3})}                  
-                                  >{item.address}</a>}
-                                  description={item.description}
+                                  onClick={() => this.props.history.push({ pathname: `/requests/${index}`, web3 : this.props.location.web3, address : this.props.match.params.campaignId})}                  
+                                  >{item.requestDescription}</a>}
+                                  description={item.recipient}
                                 />
-                                <div><h4>Requested value={item.value}</h4></div>
+                                <div><h4>Requested value={`${item.value} Wei`}</h4></div>
                             </List.Item>
                             )}
                         />

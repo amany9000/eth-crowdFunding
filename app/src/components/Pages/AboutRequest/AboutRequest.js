@@ -37,7 +37,7 @@ class About extends Component {
             data: res.results,
           });
         });
-        getReqDetails(this.props.match.params.requestId, this.props.location.web3).then((some) => {
+        getReqDetails(this.props.location.address ,this.props.match.params.requestId, this.props.location.web3).then((some) => {
           this.setState({
             request: some,
             loading: false

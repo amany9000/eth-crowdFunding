@@ -15,7 +15,7 @@ const getCampaignDetails = async(address, web3) => {
 	const approversCount = await campaign.methods.approversCount().call();
 	
 	const reqList = await getAllRequests(address, web3);
-		
+	//console.log("reqList",reqList)	
 	return {name, description, manager, minContribution, approversCount, reqList, address}
 }
 
@@ -29,7 +29,9 @@ const getAllRequests = async(address, web3) => {
 	if(numReq > 0){
 		while(numReq--){
 			const req = await campaign.methods.requests(numReq).call();		
-			reqList.push(req);
+			reqList.push({"recipient" : req.recipient, "requestDescription": req.requestDescription,
+			"value" : req.value, "complete": req.complete, "approvalCount" : req.approvalCount 
+		});
 		}
 	}
 	return reqList;
