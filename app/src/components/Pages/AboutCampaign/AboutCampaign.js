@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../../../App.css';
 import { Form, Input, Button} from 'antd';
-import { Row, Col, Divider } from 'antd';
-import { Switch } from 'antd';
+import {Row, Col, Divider} from 'antd';
+import { Switch, Space } from 'antd';
 import { Card, InputNumber } from 'antd';
 import reqwest from 'reqwest';
 import { List, Avatar, Spin, Menu, Icon } from 'antd';
@@ -42,7 +42,7 @@ class About extends Component {
             data: res.results,
             finVal : 5
           });
-        });
+      });
 
         getCampaignDetails(this.props.match.params.campaignId, this.props.location.web3).then((some) => {
           this.setState({
@@ -106,16 +106,22 @@ class About extends Component {
     } : null;
     return (
         <div>
-            <h1 className="pb-0 mb-0" style={{display: "flex", justifyContent: "center", fontSize: "40px"}}>{this.state.campaign ? this.state.campaign.name : "About"}</h1>
+          <Row style={{paddingBottom: 0}}>
+            <Col span={6} offset={3}>
+              <h1 style={{ justifyContent: "center", fontSize: "40px"}}>{this.state.campaign ? this.state.campaign.name : "About"}</h1>
+            </Col>
+            <Col span={6} offset={9} style={{ justifyContent: "center", paddingTop: 20 }}>
+              <Button style={{display: "flex", color : "#13c2c2"}} 
+                onClick={() => this.props.history.push({ pathname: `/add/request/`, web3 : this.props.location.web3, address : this.props.match.params.campaignId})}>
+                  Add Request
+              </Button>
+            </Col>
+          </Row>
             <div style={{ background: '#ECECEC', padding: '10px' }}>
 
             <Row type="flex" justify="center">
                 <Col span={6} push={18}>
-                    <Form layout={formLayout}>
-                        <FormItem {...buttonItemLayout}>
-                            <Switch checkedChildren="Approver" unCheckedChildren="Not Approver"/>
-
-                        </FormItem>
+                    <Form layout={formLayout} className="pt-5">
                         <FormItem
                             label="Contribute"
                             {...formItemLayout}

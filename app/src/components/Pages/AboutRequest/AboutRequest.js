@@ -38,6 +38,7 @@ class About extends Component {
           });
         });
         getReqDetails(this.props.location.address ,this.props.match.params.requestId, this.props.location.web3).then((some) => {
+          console.log("req",some)
           this.setState({
             request: some,
             loading: false
@@ -96,38 +97,24 @@ class About extends Component {
     } : null;
     return (
         <div>
-            <h1 style={{display: "flex", justifyContent: "center", fontSize: "50px"}}>Request Details</h1>
+            <h1 style={{display: "flex", justifyContent: "center", fontSize: "40px"}}>{this.state.request ? this.state.request.requestDescription : "Request Details"}</h1>
             <div style={{ background: '#ECECEC', padding: '30px' }}>
 
             <Row type="flex" justify="center">
                 <Col span={6} push={18}>
                     <Form layout={formLayout}>
                         <FormItem {...buttonItemLayout}>
-                            <Switch checkedChildren="Approver" unCheckedChildren="Not Approver"/>
-                        </FormItem>
-                        <FormItem
-                            label="Value"
-                            {...formItemLayout}
-                        >
-                            <Input placeholder="Value (in Finney)" value={this.state.value} onChange={(event) => this.setState({value: event.target.value})}/>
-                        </FormItem>
-
-                        <FormItem {...buttonItemLayout}>
-                            <Button type="primary" onClick={()=> contribute(this.props.match.params.requestId, this.state.value, this.props.location.web3).then(() => alert("Contribution Made, thank you!!!!"))}>Contribute</Button>
-                        </FormItem>                        
-                        <FormItem {...buttonItemLayout}>
-                            <Button type="danger" onClick={()=> finalizeRequest(this.props.match.params.requestId, this.props.location.web3)}>Finalize</Button>
+                            <Button type="success" onClick={()=> finalizeRequest(this.props.match.params.requestId, this.props.location.web3)}>Finalize</Button>
                         </FormItem>
                     </Form>
                 </Col>
                 <Col span={16} pull={4}>
                         {request?
                         <div>
-                    <h2><strong>{request.description}</strong></h2>
-                    <p><strong>Contact:</strong> {request.contact}</p>
+                    <h2><strong>{`${request.value} Wei`}</strong></h2>
                     <p><strong>Reciepient:</strong> {request.recipient}</p>
+                    <p><strong>Total Approvals:</strong> {request.approvalCount}</p>
                     <p><strong>Is Complete:</strong> {request.complete?"Yes":"No"}</p>
-                    <p><strong>Value:</strong> {request.value}</p>
                     </div>
                         :
                         null}

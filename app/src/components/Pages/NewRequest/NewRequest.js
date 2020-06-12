@@ -3,6 +3,8 @@ import '../../../App.css';
 import { Form, Input, Button} from 'antd';
 import { Row, Col, Divider } from 'antd';
 import { Switch } from 'antd';
+import {withRouter} from 'react-router-dom';
+
 import { createRequest } from "../../../ethereum/campaigns";
 
 const FormItem = Form.Item;
@@ -15,13 +17,14 @@ class NewRequest extends Component {
           formLayout: 'horizontal',
           address: '',
           description: '',
-          contact: '',
-          value: '',
-          recipient: '',
-          min: '',
-          pass: ''
+          value: ''
         };
       }
+    
+  submitRequest = () => {
+    createRequest(this.props.location.address, this.state.description, parseInt(this.state.value), this.state.address, this.props.location.web3)
+        .then( () => alert("Request Added"));
+  }    
       
   render() {
     const { TextArea } = Input;
@@ -38,10 +41,10 @@ class NewRequest extends Component {
             <Row type="flex" justify="center">
                 <Col span={12}>
                     <br></br>
-                    <h1 style={{display: "flex", justifyContent: "center"}}>Add new Request</h1>
+                    <h1 style={{display: "flex", justifyContent: "center"}}>Add a new Request</h1>
                     <Form layout={formLayout}>
                         <FormItem
-                            label="Address"
+                            label="Recipient"
                             {...formItemLayout}
                         >
                             <Input placeholder="Address" value={this.state.address} onChange={(event)=> this.setState({address: event.target.value})} />
@@ -53,38 +56,16 @@ class NewRequest extends Component {
                             <TextArea rows={4} value={this.state.description} onChange={(event)=> this.setState({description: event.target.value})}/>
                         </FormItem>
                         <FormItem
-                            label="Contact"
-                            {...formItemLayout}
-                        >
-                            <Input placeholder="Contact" value={this.state.contact} onChange={(event)=> this.setState({contact: event.target.value})}/>
-                        </FormItem>
-                        <FormItem
-                            label="Value (Wei)"
+                            label="Value (in Wei)"
                             {...formItemLayout}
                         >
                             <Input placeholder="Value of the request (in Wei)" value={this.state.value} onChange={(event)=> this.setState({value: event.target.value})} />
                         </FormItem>
-                        <FormItem
-                            label="Vendor"
-                            {...formItemLayout}
-                        >
-                            <Input placeholder="Vendor details" value={this.state.recipient} onChange={(event)=> this.setState({recipient: event.target.value})} />
-                        </FormItem>
-                        <FormItem
-                            label="Minimum"
-                            {...formItemLayout}
-                        >
-                             <Input placeholder="Minimum" value={this.state.min} onChange={(event)=> this.setState({min: event.target.value})} />
-                        </FormItem>
-                        <FormItem
-                            label="Mnemonic"
-                            {...formItemLayout}
-                        >
-                             <Input placeholder="Mnemonic" value={this.state.pass} onChange={(event)=> this.setState({pass: event.target.value})}/>
-                        </FormItem>
-                        <FormItem {...buttonItemLayout}>
-                            <Button type="primary" onClick={()=> createRequest(this.state.address, this.state.description, this.state.contact, this.state.value, this.state.recipient ,this.state.min, this.state.pass)}>Submit</Button>
-                        </FormItem>
+                        <Form.Item {...{"wrapperCol": { "offset": 8, "span": 16 }}}>
+                            <Button type="primary" htmlType="submit" onClick={() => this.submitRequest()}>
+                            Submit
+                            </Button>
+                        </Form.Item>
                     </Form>
                 </Col>
             </Row>
@@ -93,4 +74,4 @@ class NewRequest extends Component {
   }
 }
 
-export default NewRequest;
+export default withRouter(NewRequest);

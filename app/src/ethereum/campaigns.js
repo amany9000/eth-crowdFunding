@@ -38,7 +38,7 @@ const getAllRequests = async(address, web3) => {
 }
 
 const getReqDetails = async(address, index, web3) => {
-	
+	console.log("getReq",address, index, web3);
 	const campaign = await new web3.eth.Contract(compiledCampaign.Campaign.abi, 
 		address);
 		

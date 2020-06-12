@@ -55,8 +55,8 @@ class Linker extends Component {
           <Route exact path="/aboutus" component={AboutUs} />
           <Route exact path="/campaigns/:campaignId" component={AboutCampaign} />
           <Route exact path="/requests" component={RequestList} />
-          <Route exact path="/newrequest"  component={NewRequest} />
-          <Route exact path="/requests/:item" component={AboutRequest} />
+          <Route exact path="/add/request"  component={NewRequest} />
+          <Route exact path="/requests/:requestId" component={AboutRequest} />
         </div>
     </Router>
     );
