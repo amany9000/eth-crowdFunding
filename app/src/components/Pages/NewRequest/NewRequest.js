@@ -19,7 +19,7 @@ class NewRequest extends Component {
           description: '',
           value: ''
         };
-      }
+    }
     
   submitRequest = () => {
     createRequest(this.props.location.address, this.state.description, parseInt(this.state.value), this.state.address, this.props.location.web3)

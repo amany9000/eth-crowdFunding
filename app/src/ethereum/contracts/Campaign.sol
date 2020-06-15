@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.6.8;
 
 contract CampaignStore {
@@ -10,13 +9,15 @@ contract CampaignStore {
         address newCampaign = address(new Campaign(campaignName, campaignDescription, min, msg.sender));
         deployedCampaigns.push(newCampaign);
     }
+    
     function getDeployedCampaigns() public view returns (address[] memory){
         return deployedCampaigns;
     }
 }
 
+
 contract Campaign {
-    
+
     struct Request{
         string requestDescription;
         uint value;
@@ -27,7 +28,7 @@ contract Campaign {
     }
     
     Request[] public requests;
-    
+
     string public name;
     string public description;
     address public manager;
@@ -36,11 +37,7 @@ contract Campaign {
 
     
     mapping (address => bool) public approvers;
-
-    modifier onlyManager{
-        require(msg.sender == manager);
-        _;
-    }
+    
 
     constructor (string memory campaignName, string memory campaignDescription, uint minimum, address creator) public{
         name = campaignName;
@@ -48,11 +45,12 @@ contract Campaign {
         manager = creator;
         minContribution = minimum;
     }
-    
-    function returnReqLenght() public view returns (uint) {
-        return requests.length;
+
+    modifier onlyManager{
+        require(msg.sender == manager);
+        _;
     }
-    
+
     function contribute() public payable {
         
         require(msg.value >= minContribution);
@@ -61,7 +59,7 @@ contract Campaign {
         approvers[msg.sender] = true;
         approversCount++;
     }
-    
+
     function createRequest(string memory reqDescription, uint value, address payable recipient) public onlyManager{
         Request memory newRequest = Request({
             requestDescription: reqDescription,
@@ -73,22 +71,25 @@ contract Campaign {
         
         requests.push(newRequest);
     }
-    
+
     function approveRequest(uint index) public {
     
+        require(!requests[index].complete);
         require(approvers[msg.sender]);
         require(!requests[index].approvals[msg.sender]);
-        
+
         requests[index].approvals[msg.sender] = true;
         requests[index].approvalCount++;
     }
-    
+
     function finalizeRequest(uint index) public onlyManager{
         
-        require(requests[index].approvalCount > (approversCount)/2);
         require(!requests[index].complete);
+        require(requests[index].approvalCount > (approversCount)/2);
+        require(requests[index].value <=  address(this).balance);
         
         requests[index].recipient.transfer(requests[index].value);
         requests[index].complete = true;
     }
+    
 }

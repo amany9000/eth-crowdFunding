@@ -7,7 +7,7 @@ const {getCampaignDetails} = require("./campaigns.js");
 
 const getWeb3 = (pass) => {
 	const provider = new hdWalletProvider(
-		"cousin wasp clip dynamic advance devote this million magic bean ceiling anger",
+		pass,
 		"https://rinkeby.infura.io/v3/e8bccfbf91864d7ea8797b0ae8b2d30a"  //This address will be generated through infura
 	);
 	const web3 = new Web3(provider);

@@ -12,7 +12,7 @@ import {
   withRouter
 } from 'react-router-dom'
 
-import {getReqDetails, contribute, finalizeRequest} from "../../../ethereum/campaigns";
+import {getReqDetails, finalizeRequest, approveRequest} from "../../../ethereum/campaigns";
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
@@ -37,8 +37,7 @@ class About extends Component {
             data: res.results,
           });
         });
-        getReqDetails(this.props.location.address ,this.props.match.params.requestId, this.props.location.web3).then((some) => {
-          console.log("req",some)
+        getReqDetails(this.props.location.address,this.props.match.params.requestId, this.props.location.web3).then((some) => {
           this.setState({
             request: some,
             loading: false
@@ -104,7 +103,10 @@ class About extends Component {
                 <Col span={6} push={18}>
                     <Form layout={formLayout}>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="success" onClick={()=> finalizeRequest(this.props.match.params.requestId, this.props.location.web3)}>Finalize</Button>
+                            <Button type="success" onClick={()=> approveRequest(this.props.location.address, this.props.match.params.requestId, this.props.location.web3)}>Approve</Button>
+                        </FormItem>
+                        <FormItem {...buttonItemLayout}>
+                            <Button type="primary" onClick={()=> finalizeRequest(this.props.location.address, this.props.match.params.requestId, this.props.location.web3)}>Finalize</Button>
                         </FormItem>
                     </Form>
                 </Col>

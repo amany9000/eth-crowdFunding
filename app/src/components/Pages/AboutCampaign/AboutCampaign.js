@@ -156,7 +156,7 @@ class About extends Component {
                                 <List.Item.Meta
                                 avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                                 title={<a 
-                                  onClick={() => this.props.history.push({ pathname: `/requests/${index}`, web3 : this.props.location.web3, address : this.props.match.params.campaignId})}                  
+                                  onClick={() => this.props.history.push({ pathname: `/requests/${this.state.campaign.reqList.length - index - 1}`, web3 : this.props.location.web3, address : this.props.match.params.campaignId})}                  
                                   >{item.requestDescription}</a>}
                                   description={item.recipient}
                                 />
