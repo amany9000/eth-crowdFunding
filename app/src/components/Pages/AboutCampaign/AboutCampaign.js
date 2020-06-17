@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../../App.css';
+import Web3 from 'web3';
 import { Form, Input, Button} from 'antd';
 import {Row, Col, Divider} from 'antd';
 import { Switch, Space } from 'antd';
@@ -28,29 +29,38 @@ class About extends Component {
         data: [],
         campaign: null,
         approver : false,
-        finVal : 5
+        finVal : 5,
+        web3 : '',
+        balance : 0
       }
 
       sendVal = () => {
-        contribute(this.props.match.params.campaignId, this.state.finVal ,this.props.location.web3)
+        contribute(this.props.match.params.campaignId, this.state.finVal ,this.state.web3)
           .then(() => alert("Contribution Made, thank you!!!!!"))
       }
 
-      componentDidMount() {
-        this.getData((res) => {
-          this.setState({
-            data: res.results,
-            finVal : 5
-          });
-      });
+    componentDidMount() {
+      if (window.ethereum){
+        console.log("hereeee")
+        window.web3 = new Web3(window.ethereum);
+        window.ethereum.enable();
 
-        getCampaignDetails(this.props.match.params.campaignId, this.props.location.web3).then((some) => {
-          this.setState({
-            campaign: some,
-            loading: false,
-          }, () => console.log("cdm", this.state.campaign));
+        this.setState({web3 : this.props.location.web3 ? this.props.location.web3 : window.web3}, () => {
+          getCampaignDetails(this.props.match.params.campaignId, this.state.web3).then((some) => {
+            this.setState({
+              campaign: some,
+              loading: false,
+              finVal : 5
+            });
+          })
+        });
+
+        window.web3.eth.getBalance(this.props.match.params.campaignId, (err, result) => {
+          this.setState({balance :result})
         })
+
       }
+    }
       getData = (callback) => {
         reqwest({
           url: fakeDataUrl,
@@ -112,7 +122,7 @@ class About extends Component {
             </Col>
             <Col span={6} offset={9} style={{ justifyContent: "center", paddingTop: 20 }}>
               <Button style={{display: "flex", color : "#13c2c2"}} 
-                onClick={() => this.props.history.push({ pathname: `/add/request/`, web3 : this.props.location.web3, address : this.props.match.params.campaignId})}>
+                onClick={() => this.props.history.push({ pathname: `/add/request/`, web3 : this.state.web3, address : this.props.match.params.campaignId})}>
                   Add Request
               </Button>
             </Col>
@@ -142,6 +152,8 @@ class About extends Component {
                         <h2>{campaign.description}</h2>
                         <p><b>Manager:</b> {campaign.manager}</p>
                         <p><b>Min. Contribution:</b> {`${campaign.minContribution} Wei`}</p>
+                        <p><b>Campaign's Approver Count:</b> {`${campaign.approversCount}`}</p>
+                        <p><b>Accoutn Balance:</b> {`${this.state.balance} Wei`}</p>
                         <br /> <br />
                         <h1>Request List</h1>
                         <List
@@ -156,7 +168,7 @@ class About extends Component {
                                 <List.Item.Meta
                                 avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                                 title={<a 
-                                  onClick={() => this.props.history.push({ pathname: `/requests/${this.state.campaign.reqList.length - index - 1}`, web3 : this.props.location.web3, address : this.props.match.params.campaignId})}                  
+                                  onClick={() => this.props.history.push({ pathname: `/requests/${this.state.campaign.reqList.length - index - 1}`, web3 : this.state.web3, address : this.props.match.params.campaignId})}                  
                                   >{item.requestDescription}</a>}
                                   description={item.recipient}
                                 />

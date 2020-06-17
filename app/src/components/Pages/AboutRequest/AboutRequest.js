@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import Web3 from 'web3';
 import '../../../App.css';
 import { Form, Input, Button} from 'antd';
 import { Row, Col, Divider } from 'antd';
@@ -29,20 +31,24 @@ class About extends Component {
         showLoadingMore: true,
         data: [],
         request: null,
-        value: ''
+        value: '',
+        web3 : ''
       }
+
       componentDidMount() {
-        this.getData((res) => {
-          this.setState({
-            data: res.results,
+        if (window.ethereum){
+          console.log("hereeee")
+          window.web3 = new Web3(window.ethereum);
+          window.ethereum.enable();
+          this.setState({web3 : this.props.location.web3 ? this.props.location.web3 : window.web3}, () => {
+            getReqDetails(this.props.location.address,this.props.match.params.requestId, this.state.web3).then((some) => {
+              this.setState({
+                request: some,
+                loading: false
+              });
+            })
           });
-        });
-        getReqDetails(this.props.location.address,this.props.match.params.requestId, this.props.location.web3).then((some) => {
-          this.setState({
-            request: some,
-            loading: false
-          });
-        })
+        }
       }
 
       getData = (callback) => {
@@ -103,10 +109,10 @@ class About extends Component {
                 <Col span={6} push={18}>
                     <Form layout={formLayout}>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="success" onClick={()=> approveRequest(this.props.location.address, this.props.match.params.requestId, this.props.location.web3)}>Approve</Button>
+                            <Button type="success" onClick={()=> approveRequest(this.props.location.address, this.props.match.params.requestId, this.state.web3)}>Approve</Button>
                         </FormItem>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="primary" onClick={()=> finalizeRequest(this.props.location.address, this.props.match.params.requestId, this.props.location.web3)}>Finalize</Button>
+                            <Button type="primary" onClick={()=> finalizeRequest(this.props.location.address, this.props.match.params.requestId, this.state.web3)}>Finalize</Button>
                         </FormItem>
                     </Form>
                 </Col>
@@ -116,7 +122,7 @@ class About extends Component {
                     <h2><strong>{`${request.value} Wei`}</strong></h2>
                     <p><strong>Reciepient:</strong> {request.recipient}</p>
                     <p><strong>Total Approvals:</strong> {request.approvalCount}</p>
-                    <p><strong>Is Complete:</strong> {request.complete?"Yes":"No"}</p>
+                    <p><strong>Completed:</strong> {request.complete?"Yes":"No"}</p>
                     </div>
                         :
                         null}

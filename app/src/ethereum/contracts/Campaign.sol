@@ -15,7 +15,6 @@ contract CampaignStore {
     }
 }
 
-
 contract Campaign {
 
     struct Request{
@@ -26,7 +25,7 @@ contract Campaign {
         uint approvalCount;
         mapping(address => bool) approvals;
     }
-    
+
     Request[] public requests;
 
     string public name;
@@ -37,7 +36,6 @@ contract Campaign {
 
     
     mapping (address => bool) public approvers;
-    
 
     constructor (string memory campaignName, string memory campaignDescription, uint minimum, address creator) public{
         name = campaignName;
@@ -46,18 +44,18 @@ contract Campaign {
         minContribution = minimum;
     }
 
-    modifier onlyManager{
-        require(msg.sender == manager);
-        _;
-    }
-
     function contribute() public payable {
-        
+
         require(msg.value >= minContribution);
         require(!approvers[msg.sender]);
         
         approvers[msg.sender] = true;
         approversCount++;
+    }
+
+    modifier onlyManager{
+        require(msg.sender == manager);
+        _;
     }
 
     function createRequest(string memory reqDescription, uint value, address payable recipient) public onlyManager{

@@ -4,6 +4,7 @@ import { Form, Input, Button} from 'antd';
 import { Row, Col, Divider } from 'antd';
 import { Switch } from 'antd';
 import {withRouter} from 'react-router-dom';
+import Web3 from 'web3';
 
 import { createRequest } from "../../../ethereum/campaigns";
 
@@ -17,12 +18,22 @@ class NewRequest extends Component {
           formLayout: 'horizontal',
           address: '',
           description: '',
-          value: ''
+					value: '',
+					web3 : ''
         };
     }
     
+	componentDidMount() {
+			if (window.ethereum){
+					console.log("hereeee")
+					window.web3 = new Web3(window.ethereum);
+					window.ethereum.enable();
+					this.setState({web3 : this.props.location.web3 ? this.props.location.web3 : window.web3});
+			}
+	}  
+
   submitRequest = () => {
-    createRequest(this.props.location.address, this.state.description, parseInt(this.state.value), this.state.address, this.props.location.web3)
+    createRequest(this.props.location.address, this.state.description, parseInt(this.state.value), this.state.address, this.state.web3)
         .then( () => alert("Request Added"));
   }    
       

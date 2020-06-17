@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import Web3 from 'web3';
 import '../../../App.css';
 import { Form, Input, Button} from 'antd';
 import { Row, Col, Divider } from 'antd';
@@ -16,9 +18,19 @@ class AddCampaign extends Component {
           formLayout: 'horizontal',
           name: '',
           description: '',
-          minContribution:''
+          minContribution:'',
+          web3 : ''
         };
       }
+
+    componentDidMount() {
+        if (window.ethereum){
+            console.log("hereeee")
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
+            this.setState({web3 : this.props.location.web3 ? this.props.location.web3 : window.web3});
+        }
+    }  
 
   render() {
       console.log(this.props.match.params.mnemonic);
@@ -57,7 +69,7 @@ class AddCampaign extends Component {
                             <Input placeholder="Minimum Contribution Allowed" value={this.state.minContribution} onChange={(event) => this.setState({minContribution: event.target.value})}/>
                         </FormItem>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="primary" onClick={()=> createCampaign(this.state.name, this.state.description, parseInt(this.state.minContribution), this.props.location.web3).then((res) => {
+                            <Button type="primary" onClick={()=> createCampaign(this.state.name, this.state.description, parseInt(this.state.minContribution), this.state.web3).then((res) => {
                                 alert("Congrats, new Campaign Added!")})}>Submit</Button>
                         </FormItem>
                     </Form>
