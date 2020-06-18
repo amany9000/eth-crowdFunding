@@ -25,7 +25,6 @@ class AddCampaign extends Component {
 
     componentDidMount() {
         if (window.ethereum){
-            console.log("hereeee")
             window.web3 = new Web3(window.ethereum);
             window.ethereum.enable();
             this.setState({web3 : this.props.location.web3 ? this.props.location.web3 : window.web3});
@@ -33,7 +32,6 @@ class AddCampaign extends Component {
     }  
 
   render() {
-      console.log(this.props.match.params.mnemonic);
     const { TextArea } = Input;
     const { formLayout } = this.state;
     const formItemLayout = formLayout === 'horizontal' ? {
@@ -66,7 +64,7 @@ class AddCampaign extends Component {
                             label="Min. Contribution"
                             {...formItemLayout}
                         >
-                            <Input placeholder="Minimum Contribution Allowed" value={this.state.minContribution} onChange={(event) => this.setState({minContribution: event.target.value})}/>
+                            <Input placeholder="Minimum Contribution in Finney" value={this.state.minContribution} onChange={(event) => this.setState({minContribution: event.target.value})}/>
                         </FormItem>
                         <FormItem {...buttonItemLayout}>
                             <Button type="primary" onClick={()=> createCampaign(this.state.name, this.state.description, parseInt(this.state.minContribution), this.state.web3).then((res) => {

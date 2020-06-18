@@ -44,6 +44,10 @@ contract Campaign {
         minContribution = minimum;
     }
 
+    function returnReqLenght() public view returns (uint) {
+        return requests.length;
+    }
+
     function contribute() public payable {
 
         require(msg.value >= minContribution);

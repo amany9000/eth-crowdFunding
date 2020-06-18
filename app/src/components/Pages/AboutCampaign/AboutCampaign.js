@@ -16,10 +16,6 @@ import {getCampaignDetails, contribute} from '../../../ethereum/campaigns';
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
 const FormItem = Form.Item;
-
-function onChange(value) {
-    console.log('changed', value);
-}
   
 class About extends Component {
     state = {
@@ -41,7 +37,6 @@ class About extends Component {
 
     componentDidMount() {
       if (window.ethereum){
-        console.log("hereeee")
         window.web3 = new Web3(window.ethereum);
         window.ethereum.enable();
 
@@ -50,13 +45,13 @@ class About extends Component {
             this.setState({
               campaign: some,
               loading: false,
-              finVal : 5
+              finVal : some.minContribution
             });
           })
         });
 
         window.web3.eth.getBalance(this.props.match.params.campaignId, (err, result) => {
-          this.setState({balance :result})
+          this.setState({balance : window.web3.utils.fromWei(result,'finney')})
         })
 
       }
@@ -117,16 +112,17 @@ class About extends Component {
     return (
         <div>
           <Row style={{paddingBottom: 0}}>
-            <Col span={6} offset={3}>
-              <h1 style={{ justifyContent: "center", fontSize: "40px"}}>{this.state.campaign ? this.state.campaign.name : "About"}</h1>
+            <Col span={10} offset={1}>
+              <h1 style={{ justifyContent: "center", fontSize: "40px"}}>{this.state.campaign ? this.state.campaign.name : "Loading...."}</h1>
             </Col>
-            <Col span={6} offset={9} style={{ justifyContent: "center", paddingTop: 20 }}>
-              <Button style={{display: "flex", color : "#13c2c2"}} 
-                onClick={() => this.props.history.push({ pathname: `/add/request/`, web3 : this.state.web3, address : this.props.match.params.campaignId})}>
+            <Col span={6} offset={7} style={{ justifyContent: "center", paddingTop: 20 }}>
+              <Button style={{display: "flex", background : "#13c2c2", color : "white", marginLeft: 124}} 
+                onClick={() => this.props.history.push({ pathname: `/add/request/${this.props.match.params.campaignId}`, web3 : this.state.web3})}>
                   Add Request
               </Button>
             </Col>
           </Row>
+            
             <div style={{ background: '#ECECEC', padding: '10px' }}>
 
             <Row type="flex" justify="center">
@@ -148,12 +144,11 @@ class About extends Component {
                     {
                       campaign?
                       <div>
-                        <h2>{this.props.match.params.name}</h2>
                         <h2>{campaign.description}</h2>
                         <p><b>Manager:</b> {campaign.manager}</p>
-                        <p><b>Min. Contribution:</b> {`${campaign.minContribution} Wei`}</p>
+                        <p><b>Min. Contribution:</b> {`${campaign.minContribution} Finney`}</p>
                         <p><b>Campaign's Approver Count:</b> {`${campaign.approversCount}`}</p>
-                        <p><b>Accoutn Balance:</b> {`${this.state.balance} Wei`}</p>
+                        <p><b>Accoutn Balance:</b> {`${this.state.balance} Finney`}</p>
                         <br /> <br />
                         <h1>Request List</h1>
                         <List
@@ -168,11 +163,11 @@ class About extends Component {
                                 <List.Item.Meta
                                 avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                                 title={<a 
-                                  onClick={() => this.props.history.push({ pathname: `/requests/${this.state.campaign.reqList.length - index - 1}`, web3 : this.state.web3, address : this.props.match.params.campaignId})}                  
+                                  onClick={() => this.props.history.push({ pathname: `/requests/${this.props.match.params.campaignId}/${this.state.campaign.reqList.length - index - 1}`, web3 : this.state.web3})}                  
                                   >{item.requestDescription}</a>}
-                                  description={item.recipient}
+                                description={`To: ${item.recipient}`}
                                 />
-                                <div><h4>Requested value={`${item.value} Wei`}</h4></div>
+                                <div><h4>Requested value={`${item.value} Finney`}</h4></div>
                             </List.Item>
                             )}
                         />

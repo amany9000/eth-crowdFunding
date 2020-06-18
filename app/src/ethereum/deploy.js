@@ -1,6 +1,6 @@
 
 // This is a file to deploy the compiled factory contract at .build/CampaignStore.json
-const hdWalletProvider = require("truffle-hdwallet-provider");
+const hdWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require("web3");
 const compiledStore = require("../ethereum/build/CampaignStore.json");
 

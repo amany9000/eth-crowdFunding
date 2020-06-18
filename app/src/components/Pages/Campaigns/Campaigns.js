@@ -97,7 +97,7 @@ class Campaigns extends Component {
                   title={<a 
                   onClick={() => this.props.history.push({ pathname: `/campaigns/${item.address}`, web3 : this.props.web3})}                  
                   >{item.address}</a>}
-                  description={`${item.name} : ${item.description}`}
+                  description={`${item.name}`}
                 />
               </List.Item>
             )}

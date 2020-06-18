@@ -11,11 +11,10 @@ const getCampaignDetails = async(address, web3) => {
 	const name = await campaign.methods.name().call();
 	const description = await campaign.methods.description().call();
 	const manager = await campaign.methods.manager().call();
-	const minContribution = await campaign.methods.minContribution().call();
+	const minContribution = web3.utils.fromWei(await campaign.methods.minContribution().call(), 'finney');
 	const approversCount = await campaign.methods.approversCount().call();
 	
 	const reqList = await getAllRequests(address, web3);
-	//console.log("reqList",reqList)	
 	return {name, description, manager, minContribution, approversCount, reqList, address}
 }
 
@@ -30,7 +29,7 @@ const getAllRequests = async(address, web3) => {
 		while(numReq--){
 			const req = await campaign.methods.requests(numReq).call();		
 			reqList.push({"recipient" : req.recipient, "requestDescription": req.requestDescription,
-			"value" : req.value, "complete": req.complete, "approvalCount" : req.approvalCount 
+			"value" : web3.utils.fromWei(req.value, 'finney'), "complete": req.complete, "approvalCount" : req.approvalCount 
 		});
 		}
 	}
@@ -38,14 +37,15 @@ const getAllRequests = async(address, web3) => {
 }
 
 const getReqDetails = async(address, index, web3) => {
-	console.log("getReq",address, index, web3);
 	const campaign = await new web3.eth.Contract(compiledCampaign.Campaign.abi, 
 		address);
 		
 	const numReq = await campaign.methods.returnReqLenght().call();
 
-	if(numReq >= index ){
-		return await campaign.methods.requests(index).call();		
+	if(numReq > index ){
+		const req = await campaign.methods.requests(index).call();		
+		return {"recipient" : req.recipient, "requestDescription": req.requestDescription,
+		"value" : web3.utils.fromWei(req.value, 'finney'), "complete": req.complete, "approvalCount" : req.approvalCount} 
 	}
 	else{
 		return [];
@@ -61,9 +61,8 @@ const contribute = async(address, amount, web3) => {
 
 	await campaign.methods.contribute().send({
 		from: accounts[0],
-		value: amount
+		value: web3.utils.toWei(amount,'finney')
 	});
-	console.log("Approver Count- ", await campaign.methods.approversCount().call())
 }
 
 const createRequest = async(address, description, value, recipient , web3) => {
@@ -72,13 +71,14 @@ const createRequest = async(address, description, value, recipient , web3) => {
 		address);
 	
 	const accounts = await  web3.eth.getAccounts();
+	//console.log("create", typeof(value));
 	
 	return await campaign.methods
-			.createRequest(description, value, recipient)
-			.send({
-				from: accounts[0],
-				gas: "3000000"
-			});
+		.createRequest(description, web3.utils.toWei(value.toString(), 'finney'), recipient)
+		.send({
+			from: accounts[0],
+			gas: "3000000"
+		});
 }
 
 const approveRequest = async(address, requestIndex, web3) => {

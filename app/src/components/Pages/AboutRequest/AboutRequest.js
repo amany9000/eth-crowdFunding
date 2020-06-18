@@ -21,7 +21,6 @@ const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,
 const FormItem = Form.Item;
 
 function onChange(value) {
-    console.log('changed', value);
 }
 
 class About extends Component {
@@ -32,22 +31,27 @@ class About extends Component {
         data: [],
         request: null,
         value: '',
-        web3 : ''
+        web3 : '',
+        balance : 0
       }
 
       componentDidMount() {
         if (window.ethereum){
-          console.log("hereeee")
           window.web3 = new Web3(window.ethereum);
           window.ethereum.enable();
           this.setState({web3 : this.props.location.web3 ? this.props.location.web3 : window.web3}, () => {
-            getReqDetails(this.props.location.address,this.props.match.params.requestId, this.state.web3).then((some) => {
+            getReqDetails(this.props.match.params.campaignId,this.props.match.params.requestId, this.state.web3).then((some) => {
+              console.log("aboutReeeeq", some)
               this.setState({
                 request: some,
                 loading: false
               });
             })
           });
+
+          window.web3.eth.getBalance(this.props.match.params.campaignId, (err, result) => {
+            this.setState({balance : window.web3.utils.fromWei(result,'finney')})
+          })
         }
       }
 
@@ -109,17 +113,23 @@ class About extends Component {
                 <Col span={6} push={18}>
                     <Form layout={formLayout}>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="success" onClick={()=> approveRequest(this.props.location.address, this.props.match.params.requestId, this.state.web3)}>Approve</Button>
+                            <Button type="success" onClick={()=> approveRequest(this.props.match.params.campaignId, this.props.match.params.requestId, this.state.web3)}>Approve</Button>
                         </FormItem>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="primary" onClick={()=> finalizeRequest(this.props.location.address, this.props.match.params.requestId, this.state.web3)}>Finalize</Button>
+                            <Button type="primary" onClick={()=> {
+                              if(parseInt(this.state.request.value) <= parseInt(this.state.balance))
+                                finalizeRequest(this.props.match.params.campaignId, this.props.match.params.requestId, this.state.web3)
+                              else
+                               alert("Request's value is more than contract balance");
+                            }
+                            }>Finalize</Button>
                         </FormItem>
                     </Form>
                 </Col>
                 <Col span={16} pull={4}>
                         {request?
                         <div>
-                    <h2><strong>{`${request.value} Wei`}</strong></h2>
+                    <h2><strong>{`${request.value} Finney`}</strong></h2>
                     <p><strong>Reciepient:</strong> {request.recipient}</p>
                     <p><strong>Total Approvals:</strong> {request.approvalCount}</p>
                     <p><strong>Completed:</strong> {request.complete?"Yes":"No"}</p>

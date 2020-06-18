@@ -25,7 +25,6 @@ class NewRequest extends Component {
     
 	componentDidMount() {
 			if (window.ethereum){
-					console.log("hereeee")
 					window.web3 = new Web3(window.ethereum);
 					window.ethereum.enable();
 					this.setState({web3 : this.props.location.web3 ? this.props.location.web3 : window.web3});
@@ -33,7 +32,7 @@ class NewRequest extends Component {
 	}  
 
   submitRequest = () => {
-    createRequest(this.props.location.address, this.state.description, parseInt(this.state.value), this.state.address, this.state.web3)
+    createRequest(this.props.match.params.campaignId, this.state.description, parseInt(this.state.value), this.state.address, this.state.web3)
         .then( () => alert("Request Added"));
   }    
       
@@ -67,10 +66,10 @@ class NewRequest extends Component {
                             <TextArea rows={4} value={this.state.description} onChange={(event)=> this.setState({description: event.target.value})}/>
                         </FormItem>
                         <FormItem
-                            label="Value (in Wei)"
+                            label="Value"
                             {...formItemLayout}
                         >
-                            <Input placeholder="Value of the request (in Wei)" value={this.state.value} onChange={(event)=> this.setState({value: event.target.value})} />
+                            <Input placeholder="Value of the request in Finney" value={this.state.value} onChange={(event)=> this.setState({value: event.target.value})} />
                         </FormItem>
                         <Form.Item {...{"wrapperCol": { "offset": 8, "span": 16 }}}>
                             <Button type="primary" htmlType="submit" onClick={() => this.submitRequest()}>
