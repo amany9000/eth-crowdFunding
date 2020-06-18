@@ -116,7 +116,7 @@ class About extends Component {
               <h1 style={{ justifyContent: "center", fontSize: "40px"}}>{this.state.campaign ? this.state.campaign.name : "Loading...."}</h1>
             </Col>
             <Col span={6} offset={7} style={{ justifyContent: "center", paddingTop: 20 }}>
-              <Button style={{display: "flex", background : "#13c2c2", color : "white", marginLeft: 124}} 
+              <Button style={{display: "flex", background : "#13c2c2", color : "#1f1f1f", marginLeft: 124}} 
                 onClick={() => this.props.history.push({ pathname: `/add/request/${this.props.match.params.campaignId}`, web3 : this.state.web3})}>
                   Add Request
               </Button>

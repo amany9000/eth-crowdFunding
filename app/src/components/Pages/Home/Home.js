@@ -22,7 +22,7 @@ class Home extends Component {
           <h1 style={{
             color:'black',
           }}>
-            A transparent platform for supporting the less fortunate
+            A transparent Crowdfunding Platform.
           </h1>
           <Link to="/contribute">
             <Button type="primary">

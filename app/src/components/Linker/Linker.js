@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    Switch,
     BrowserRouter as Router,
     Route,
     Link
@@ -27,7 +28,7 @@ class Linker extends Component {
             <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={["1"]}
+                defaultSelectedKeys={"1"}
                 style={{ lineHeight: '64px' }}
                 breakpoint="lg"
                 collapsedWidth="0"
@@ -46,17 +47,20 @@ class Linker extends Component {
                 <InstagramOutlined style={{ fontSize: '20px', color: 'pink', margin: '10px' }}/>
                 </span>
             </Menu>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/account" component={Account}/>
-          <Route exact path="/contribute" component={Auth}/>
-          <Route exact path="/campaigns" component={Campaigns}/>
-          <Route exact path="/add/campaign/"  component={AddCampaign} />
-          <Route exact path="/contactus" component={ContactUs} />
-          <Route exact path="/aboutus" component={AboutUs} />
-          <Route exact path="/campaigns/:campaignId" component={AboutCampaign} />
-          <Route exact path="/requests" component={RequestList} />
-          <Route exact path="/add/request/:campaignId"  component={NewRequest} />
-          <Route exact path="/requests/:campaignId/:requestId" component={AboutRequest} />
+          <Switch>  
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/account" component={Account}/>
+            <Route exact path="/contribute" component={Auth}/>
+            <Route exact path="/campaigns" component={Campaigns}/>
+            <Route exact path="/add/campaign/"  component={AddCampaign} />
+            <Route exact path="/contactus" component={ContactUs} />
+            <Route exact path="/aboutus" component={AboutUs} />
+            <Route exact path="/campaigns/:campaignId" component={AboutCampaign} />
+            <Route exact path="/requests" component={RequestList} />
+            <Route exact path="/add/request/:campaignId"  component={NewRequest} />
+            <Route exact path="/requests/:campaignId/:requestId" component={AboutRequest} />
+            <Route component={Home} />    
+          </Switch>      
         </div>
     </Router>
     );

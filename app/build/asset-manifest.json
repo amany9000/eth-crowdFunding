@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.80bea028.chunk.css",
-    "main.js": "/static/js/main.eec01d42.chunk.js",
-    "main.js.map": "/static/js/main.eec01d42.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.3ea18b6e.js",
-    "runtime-main.js.map": "/static/js/runtime-main.3ea18b6e.js.map",
-    "static/css/2.c24626d9.chunk.css": "/static/css/2.c24626d9.chunk.css",
-    "static/js/2.3cd924be.chunk.js": "/static/js/2.3cd924be.chunk.js",
-    "static/js/2.3cd924be.chunk.js.map": "/static/js/2.3cd924be.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.3e5438cd825e22cbbf02d7ed336cddb6.js": "/precache-manifest.3e5438cd825e22cbbf02d7ed336cddb6.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.c24626d9.chunk.css.map": "/static/css/2.c24626d9.chunk.css.map",
-    "static/css/main.80bea028.chunk.css.map": "/static/css/main.80bea028.chunk.css.map",
-    "static/js/2.3cd924be.chunk.js.LICENSE.txt": "/static/js/2.3cd924be.chunk.js.LICENSE.txt"
+    "main.css": "/eth-crowdFunding/static/css/main.80bea028.chunk.css",
+    "main.js": "/eth-crowdFunding/static/js/main.308fad9e.chunk.js",
+    "main.js.map": "/eth-crowdFunding/static/js/main.308fad9e.chunk.js.map",
+    "runtime-main.js": "/eth-crowdFunding/static/js/runtime-main.5074a9cd.js",
+    "runtime-main.js.map": "/eth-crowdFunding/static/js/runtime-main.5074a9cd.js.map",
+    "static/css/2.c24626d9.chunk.css": "/eth-crowdFunding/static/css/2.c24626d9.chunk.css",
+    "static/js/2.31182c04.chunk.js": "/eth-crowdFunding/static/js/2.31182c04.chunk.js",
+    "static/js/2.31182c04.chunk.js.map": "/eth-crowdFunding/static/js/2.31182c04.chunk.js.map",
+    "index.html": "/eth-crowdFunding/index.html",
+    "precache-manifest.b0f97802e5aa131b7d355b360c05f624.js": "/eth-crowdFunding/precache-manifest.b0f97802e5aa131b7d355b360c05f624.js",
+    "service-worker.js": "/eth-crowdFunding/service-worker.js",
+    "static/css/2.c24626d9.chunk.css.map": "/eth-crowdFunding/static/css/2.c24626d9.chunk.css.map",
+    "static/css/main.80bea028.chunk.css.map": "/eth-crowdFunding/static/css/main.80bea028.chunk.css.map",
+    "static/js/2.31182c04.chunk.js.LICENSE.txt": "/eth-crowdFunding/static/js/2.31182c04.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.3ea18b6e.js",
+    "static/js/runtime-main.5074a9cd.js",
     "static/css/2.c24626d9.chunk.css",
-    "static/js/2.3cd924be.chunk.js",
+    "static/js/2.31182c04.chunk.js",
     "static/css/main.80bea028.chunk.css",
-    "static/js/main.eec01d42.chunk.js"
+    "static/js/main.308fad9e.chunk.js"
   ]
 }

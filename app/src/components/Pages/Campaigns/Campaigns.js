@@ -79,7 +79,7 @@ class Campaigns extends Component {
         <div>
           <br />
         <h2>Working campaigns
-        <Button style={{float: "right", display: "flex"}} 
+        <Button style={{float: "right", display: "flex", background : "#13c2c2", color : "#1f1f1f"}} 
         onClick={() => this.props.history.push({ pathname: `/add/campaign/`, web3 : this.props.web3})}
         >Add Campaign</Button>
         </h2>

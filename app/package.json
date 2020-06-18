@@ -2,6 +2,7 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://amany9000.github.io/eth-crowdFunding",
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.0.35",
     "antd": "^4.3.3",
@@ -10,15 +11,20 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "reqwest": "^2.0.5",
-    "solc": "^0.6.8"
+    "solc": "^0.6.8",
+    "web3": "^1.2.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy" : "npm run build&&gh-pages -d build"
   },
   "browserslist": [
     "> 5%"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^3.0.0"
+  }
 }

@@ -11,10 +11,10 @@ class ContactUs extends Component {
         <Card>
             <h1 style={{fontSize: "50px"}}>Contact Us</h1>
             <h3>
-              <b>Phone Number :</b> 8988989898
+              <b>Phone Number :</b> 6394130795
             </h3>
             <h3>
-            <b>Email :</b> helpothers@help.com
+            <b>Email :</b> amanyadavlko2502@gmal.com
             </h3>
                 <FacebookOutlined style={{ fontSize: '32px', color: 'blue', margin: '20px' }}/>
                 <YoutubeOutlined style={{ fontSize: '32px', color: 'red', margin: '20px' }}/>

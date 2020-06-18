@@ -19,14 +19,15 @@ const getAllCampaigns = async (web3) => {
 	const store = await new web3.eth.Contract((compiledStore.CampaignStore.abi),
 		"0x7BE047d4630Ae7561C37E34c27895dD908Fc5Da0");
 
-	const addresses =  await store.methods.getDeployedCampaigns().call();
+	let addresses =  await store.methods.getDeployedCampaigns().call();
 	const deployedCampaigns = [];
 
-	addresses.reverse().forEach( (address) => {
-		const camp = getCampaignDetails(address, web3);
+	for (let i in addresses){
+		const camp = getCampaignDetails(addresses[i], web3);
 		deployedCampaigns.push(camp);
-	})
-	return deployedCampaigns;
+	}
+
+	return deployedCampaigns.reverse();
 } 
 
 const createCampaign = async (name, desp, min, web3) => {
