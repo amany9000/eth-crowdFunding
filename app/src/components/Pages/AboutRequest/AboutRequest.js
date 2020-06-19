@@ -113,12 +113,12 @@ class About extends Component {
                 <Col span={6} push={18}>
                     <Form layout={formLayout}>
                         <FormItem {...buttonItemLayout}>
-                            <Button type="success" onClick={()=> approveRequest(this.props.match.params.campaignId, this.props.match.params.requestId, this.state.web3)}>Approve</Button>
+                            <Button type="success" onClick={()=> approveRequest(this.props.match.params.campaignId, this.props.match.params.requestId, this.state.web3).then(() => alert("Request Approved"))}>Approve</Button>
                         </FormItem>
                         <FormItem {...buttonItemLayout}>
                             <Button type="primary" onClick={()=> {
                               if(parseInt(this.state.request.value) <= parseInt(this.state.balance))
-                                finalizeRequest(this.props.match.params.campaignId, this.props.match.params.requestId, this.state.web3)
+                                finalizeRequest(this.props.match.params.campaignId, this.props.match.params.requestId, this.state.web3).then(() => alert("Request Finalized"))
                               else
                                alert("Request's value is more than contract balance");
                             }

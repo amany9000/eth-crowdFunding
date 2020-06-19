@@ -1,34 +1,57 @@
 # eth-crowdFunding
-An ethereum based Crowd Funding Application. The main functionalities provided by the smart contract are trust, transparency and consensus. The only way to use the contract's Eth is through ```approveRequest()``` and this function only executes the trasaction if more than 50 percent of the approvers(contributors) approve the trasaction request.   
+A transparent platform for crowdfunding on Ethereum.
 
-## To Run 
-* Clone the repository.  
- ``` bash
- cd eth-crowdFunding
- ```
-* Include the dependecies - 
-``` node
+### About
+An ethereum based Crowdfunding Application. The main benefits provided by the DApp are trust, transparency and consensus.
+
+![Campaigns](./img/campaigns.png)
+
+![Campaign](./img/campaign.png)
+
+![Add Campaign](./img/addCampaign.png)
+
+### Development
+
+-   Install Dependencies.
+
+```sh
+cd app
 npm install
 ```
-* To deploy - 
-``` node
-node ethereum/deploy.js
+
+-   To run the Dapp.
+
+```sh
+npm start
 ```
+---
 
-## To check the smart contract 
-* It is deployed on Ethereum's Rinkeby Test Network on the address - '0x97709358b13c070E20cbe0d314834244E1f0D834'.
-* You can copy the smart contract <a href="http://remix.ethereum.org">here</a>.
-* Compile and set the environment to "Injected Web3".
-* Use the Test network address given above and click at "At Address" (after getting ether for the test network  <a href = "https://www.rinkeby.io/#faucet" >here</a>). This will geenrate a Campaign Store.
-* To create a campaign instance use the  createCampaign button after providing the minimum contribution in the arguments.
+### Technologies Used
 
-## Note
-* To deploy your own smart contract, first generate an API key at <a href = https://infura.io/>infura</a> 
-* To check all the transaction of my deployed contract, check <a href = "https://rinkeby.etherscan.io/address/0x97709358b13c070e20cbe0d314834244e1f0d834">this</a>.
+##### Back End
 
-## To test
-* Run - 
-``` node 
-npm test
-```
-* Testing is done through mocha and assert library.
+-   [Node](https://nodejs.org)
+-   [Ethereum](https://www.ethereum.org/)
+-   [Solidity](https://solidity.readthedocs.io/en/v0.5.12/)
+-   [Web3](https://web3js.readthedocs.io/en/v1.2.2/)
+
+##### Front End
+
+-   [React](https://reactjs.org)
+
+---
+
+### Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+### Team Members
+
+-   [Divyesh Puri](https://github.com/DivyeshPuri)
+-   and [Myself](https://github.com/amany9000)
+
+---
+
+Found a bug? Create an [issue](https://github.com/amany9000/eth-crowdfunding/issues).
