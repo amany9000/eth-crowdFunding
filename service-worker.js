@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/eth-crowdFunding/precache-manifest.b0f97802e5aa131b7d355b360c05f624.js"
+  "/eth-crowdFunding/precache-manifest.476305eb74b83e7a0d7cf1cb33b7ce4d.js"
 );
 
 self.addEventListener('message', (event) => {
