@@ -26,6 +26,16 @@ npm start
 ```
 ---
 
+### Deploying your fork
+
+-   Replace "amany9000" with your Github Username in the homepage field in app/package.json. After this run - 
+
+```sh
+cd app
+npm run deploy
+```
+-   Push this change in homepage field to master branch also.
+
 ### Technologies Used
 
 ##### Back End
