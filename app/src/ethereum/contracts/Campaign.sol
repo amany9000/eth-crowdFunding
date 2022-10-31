@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.8;
+pragma solidity ^0.8.17;
 
 contract CampaignStore {
     address[] public deployedCampaigns;
@@ -26,7 +26,8 @@ contract Campaign {
         mapping(address => bool) approvals;
     }
 
-    Request[] public requests;
+    uint public numRequests;
+    mapping (uint => Request) public requests;
 
     string public name;
     string public description;
@@ -37,15 +38,11 @@ contract Campaign {
     
     mapping (address => bool) public approvers;
 
-    constructor (string memory campaignName, string memory campaignDescription, uint minimum, address creator) public{
+    constructor (string memory campaignName, string memory campaignDescription, uint minimum, address creator) {
         name = campaignName;
         description = campaignDescription;
         manager = creator;
         minContribution = minimum;
-    }
-
-    function returnReqLenght() public view returns (uint) {
-        return requests.length;
     }
 
     function contribute() public payable {
@@ -63,15 +60,14 @@ contract Campaign {
     }
 
     function createRequest(string memory reqDescription, uint value, address payable recipient) public onlyManager{
-        Request memory newRequest = Request({
-            requestDescription: reqDescription,
-            value: value,
-            recipient: recipient,
-            complete: false,
-            approvalCount: 0
-        });
         
-        requests.push(newRequest);
+        Request storage newRequest = requests[numRequests++];
+        
+        newRequest.requestDescription = reqDescription;
+        newRequest.value = value;
+        newRequest.recipient = recipient;
+        newRequest.complete = false;
+        newRequest.approvalCount = 0;
     }
 
     function approveRequest(uint index) public {
