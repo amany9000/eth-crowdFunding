@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/eth-crowdFunding/static/css/main.80bea028.chunk.css",
-    "main.js": "/eth-crowdFunding/static/js/main.3d89810b.chunk.js",
-    "main.js.map": "/eth-crowdFunding/static/js/main.3d89810b.chunk.js.map",
+    "main.js": "/eth-crowdFunding/static/js/main.5e492e2c.chunk.js",
+    "main.js.map": "/eth-crowdFunding/static/js/main.5e492e2c.chunk.js.map",
     "runtime-main.js": "/eth-crowdFunding/static/js/runtime-main.6d86bbf5.js",
     "runtime-main.js.map": "/eth-crowdFunding/static/js/runtime-main.6d86bbf5.js.map",
     "static/css/2.df503ee9.chunk.css": "/eth-crowdFunding/static/css/2.df503ee9.chunk.css",
     "static/js/2.30125133.chunk.js": "/eth-crowdFunding/static/js/2.30125133.chunk.js",
     "static/js/2.30125133.chunk.js.map": "/eth-crowdFunding/static/js/2.30125133.chunk.js.map",
     "index.html": "/eth-crowdFunding/index.html",
-    "precache-manifest.37add9c6852cf40c16ad03b46dfcbf46.js": "/eth-crowdFunding/precache-manifest.37add9c6852cf40c16ad03b46dfcbf46.js",
+    "precache-manifest.f44a4e7439e67c58b144198f40c98bc2.js": "/eth-crowdFunding/precache-manifest.f44a4e7439e67c58b144198f40c98bc2.js",
     "service-worker.js": "/eth-crowdFunding/service-worker.js",
     "static/css/2.df503ee9.chunk.css.map": "/eth-crowdFunding/static/css/2.df503ee9.chunk.css.map",
     "static/css/main.80bea028.chunk.css.map": "/eth-crowdFunding/static/css/main.80bea028.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.df503ee9.chunk.css",
     "static/js/2.30125133.chunk.js",
     "static/css/main.80bea028.chunk.css",
-    "static/js/main.3d89810b.chunk.js"
+    "static/js/main.5e492e2c.chunk.js"
   ]
 }
