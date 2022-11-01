@@ -10,7 +10,7 @@ class AboutUs extends Component {
         <Card>
             <h1 style={{fontSize: "50px"}}>About Us</h1>
             <h3>
-              Helping people in crowdfunding.
+              We help people with crowdfunding.
             </h3>
             </Card>
       </div>

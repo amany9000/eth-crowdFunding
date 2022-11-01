@@ -22,7 +22,7 @@ const getAllRequests = async(address, web3) => {
 	
 	const campaign = await new web3.eth.Contract(compiledCampaign.Campaign.abi, 
 		address);	
-	let  numReq = await campaign.methods.returnReqLenght().call();
+	let  numReq = await campaign.methods.numRequests().call();
 	let reqList = [];	
 	
 	if(numReq > 0){
@@ -40,7 +40,7 @@ const getReqDetails = async(address, index, web3) => {
 	const campaign = await new web3.eth.Contract(compiledCampaign.Campaign.abi, 
 		address);
 		
-	const numReq = await campaign.methods.returnReqLenght().call();
+	const numReq = await campaign.methods.numRequests().call();
 
 	if(numReq > index ){
 		const req = await campaign.methods.requests(index).call();		

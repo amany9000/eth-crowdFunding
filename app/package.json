@@ -11,7 +11,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "reqwest": "^2.0.5",
-    "solc": "^0.6.8",
+    "solc": "^0.8.17",
     "web3": "^1.2.8"
   },
   "scripts": {
@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy" : "npm run build&&gh-pages -d build"
+    "deploy": "npm run build&&gh-pages -d build"
   },
   "browserslist": [
     "> 5%"
