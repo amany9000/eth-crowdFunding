@@ -6,7 +6,7 @@ const compiledStore = require("../ethereum/build/CampaignStore.json");
 
 const provider = new hdWalletProvider(
 	"cousin wasp clip dynamic advance devote this million magic bean ceiling anger",
-	"https://rinkeby.infura.io/v3/e8bccfbf91864d7ea8797b0ae8b2d30a"
+	"https://sepolia.infura.io/v3/49ef474343844958a068e4f01ad0b2d5"
 );
 
 const web3 = new Web3(provider);
