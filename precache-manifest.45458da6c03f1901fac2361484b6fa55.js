@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "661b01dd8582463c50e0669dbfbfe5d2",
+    "revision": "c505dc0223cd70646973fb495525e6bb",
     "url": "/eth-crowdFunding/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/eth-crowdFunding/static/css/2.df503ee9.chunk.css"
   },
   {
-    "revision": "1974de2d71f336b2d6d3",
+    "revision": "8d8d0ffba72d9fa7820b",
     "url": "/eth-crowdFunding/static/css/main.80bea028.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/eth-crowdFunding/static/js/2.30125133.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1974de2d71f336b2d6d3",
-    "url": "/eth-crowdFunding/static/js/main.5e492e2c.chunk.js"
+    "revision": "8d8d0ffba72d9fa7820b",
+    "url": "/eth-crowdFunding/static/js/main.b6627204.chunk.js"
   },
   {
     "revision": "3205aca1633728f5e5e4",
