@@ -17,7 +17,7 @@ const getWeb3 = (pass) => {
 const getAllCampaigns = async (web3) => {
 	
 	const store = await new web3.eth.Contract((compiledStore.CampaignStore.abi),
-		"0xBc120f40e6F629Bb5afd28a61B2EE8ac2115f5da");
+		"0x71151F64583aD1789e2a8B4Ee17223c96Be43b85");
 
 	let addresses =  await store.methods.getDeployedCampaigns().call();
 	const deployedCampaigns = [];
@@ -34,7 +34,7 @@ const createCampaign = async (name, desp, min, web3) => {
 
 	const accounts = await  web3.eth.getAccounts();
 	const store = await new web3.eth.Contract((compiledStore.CampaignStore.abi), 
-		"0xBc120f40e6F629Bb5afd28a61B2EE8ac2115f5da");
+		"0x71151F64583aD1789e2a8B4Ee17223c96Be43b85");
 	
 	//Code to deploy a new camapign
 	return await store.methods.createCampaign(name, desp, web3.utils.toWei(min.toString(),'finney'))
